@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+body {
+  background-image: url("/src/assets/bg-image/hero-image.jpg");
+  background-repeat: no-repeat;
+  background-color: #1b1d1f;
+}
