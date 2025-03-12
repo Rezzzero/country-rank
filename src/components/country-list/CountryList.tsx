@@ -10,9 +10,15 @@ import Paper from "@mui/material/Paper";
 export const CountryList = ({ data }: { data: CountryType[] }) => {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table
+        sx={{
+          minWidth: 650,
+          "& th, & td": { color: "white", borderBottom: "none" },
+        }}
+        aria-label="simple table"
+      >
         <TableHead>
-          <TableRow>
+          <TableRow sx={{ backgroundColor: "#1b1d1f" }}>
             <TableCell>Flag</TableCell>
             <TableCell align="left">Name</TableCell>
             <TableCell align="left">Population</TableCell>
@@ -24,7 +30,9 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
           {data.map((country: CountryType) => (
             <TableRow
               key={country.name.common}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{
+                backgroundColor: "#1b1d1f",
+              }}
             >
               <TableCell component="th" scope="row">
                 <img
