@@ -1,11 +1,11 @@
-import dropDown from "../../assets/icons/Expand_down.svg";
 import { Regions } from "../../constants";
+import { CustomSelect } from "../colum-drop/ColumnSelect.tsx";
 
 export const Filter = () => {
   return (
-    <div className="flex flex-col w-[200px]">
-      <p>Sort by</p>
-      <p>drop-down</p>
+    <div className="flex flex-col max-w-[260px]">
+      <p className="mb-1">Sort by</p>
+      <CustomSelect />
       <p>Region</p>
       <div className="flex gap-2">
         {Regions.map((region) => (

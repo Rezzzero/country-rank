@@ -16,7 +16,7 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
         <h1>Found {data.length} countries</h1>
         <Search />
       </div>
-      <div className="flex">
+      <div className="flex gap-5">
         <Filter />
         <TableContainer
           component={Paper}

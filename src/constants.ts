@@ -5,4 +5,6 @@ export const Regions = [
   "Asia",
   "Europe",
   "Oceania",
-] as const;
+];
+
+export const Columns = ["Population", "Name", "Region", "Area"];
