@@ -13,7 +13,7 @@ function App() {
           "https://restcountries.com/v3.1/all?sort=population"
         );
         const json = await response.json();
-        setData(json.slice(0, 20));
+        setData(json);
       } catch (error) {
         console.error(error);
       }
@@ -26,11 +26,7 @@ function App() {
     <div className="container mx-auto flex flex-col items-center pt-30 px-8 gap-23">
       <img src={logo} alt="logo" className="mx-auto" />
       <div className="bg-[#1b1d1f] w-full text-white p-6 border-2 border-[#282B30] rounded-xl">
-        {data ? (
-          <CountryList data={data} setData={setData} />
-        ) : (
-          <p>Loading...</p>
-        )}
+        {data ? <CountryList data={data} /> : <p>Loading...</p>}
       </div>
     </div>
   );

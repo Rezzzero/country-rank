@@ -9,25 +9,41 @@ import Paper from "@mui/material/Paper";
 import { Search } from "../search/Search";
 import { Filter } from "../filters/Filter";
 import { useEffect, useState } from "react";
-import { Columns } from "../../constants";
+import { Regions, Columns } from "../../constants";
 
-export const CountryList = ({
-  data,
-  setData,
-}: {
-  data: CountryType[];
-  setData: React.Dispatch<React.SetStateAction<CountryType[]>>;
-}) => {
+export const CountryList = ({ data }: { data: CountryType[] }) => {
+  const [originalData, setOriginalData] = useState<CountryType[]>(data);
+  const [filteredData, setFilteredData] = useState<CountryType[]>(data);
   const [selectedCol, setSelectedCol] = useState<keyof CountryType>(Columns[0]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>(Regions);
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCol(event.target.value as keyof CountryType);
   };
 
+  const handleSelectRegion = (region: string) => {
+    if (selectedRegions.includes(region)) {
+      setSelectedRegions(selectedRegions.filter((r) => r !== region));
+    } else {
+      setSelectedRegions([...selectedRegions, region]);
+    }
+  };
+
   useEffect(() => {
-    setData((prevData) =>
-      [...prevData].sort((a, b) => (b[selectedCol] > a[selectedCol] ? 1 : -1))
+    setOriginalData(data);
+    setFilteredData(data);
+  }, [data]);
+
+  useEffect(() => {
+    let updatedData = originalData.filter((country) =>
+      selectedRegions.includes(country.region)
     );
-  }, [selectedCol, setData]);
+
+    updatedData = [...updatedData].sort((a, b) =>
+      b[selectedCol] > a[selectedCol] ? 1 : -1
+    );
+
+    setFilteredData(updatedData);
+  }, [selectedRegions, selectedCol, originalData, data]);
 
   return (
     <div>
@@ -39,10 +55,12 @@ export const CountryList = ({
         <Filter
           selectedCol={selectedCol}
           handleSelectChange={handleSelectChange}
+          selectedRegions={selectedRegions}
+          handleSelectRegion={handleSelectRegion}
         />
         <TableContainer
           component={Paper}
-          sx={{ overflow: "auto", height: "300px" }}
+          sx={{ overflow: "auto", height: "400px" }}
         >
           <Table
             sx={{
@@ -63,7 +81,7 @@ export const CountryList = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((country: CountryType) => (
+              {filteredData.map((country: CountryType) => (
                 <TableRow
                   key={country.name.common}
                   sx={{
