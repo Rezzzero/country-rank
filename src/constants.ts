@@ -1,3 +1,5 @@
+import { CountryType } from "./types/types";
+
 export const Regions = [
   "Americas",
   "Antarctic",
@@ -7,4 +9,9 @@ export const Regions = [
   "Oceania",
 ];
 
-export const Columns = ["Population", "Name", "Region", "Area"];
+export const Columns: (keyof CountryType)[] = [
+  "population",
+  "area",
+  "region",
+  "name",
+];

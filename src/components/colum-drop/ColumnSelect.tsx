@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { Columns } from "../../constants";
 import dropIcon from "../../assets/icons/Expand_down.svg";
 
-export const CustomSelect = () => {
-  const [selectedCol, setSelectedCol] = useState(Columns[0]);
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCol(event.target.value);
-  };
-
+export const CustomSelect = ({
+  selectedCol,
+  handleSelectChange,
+}: {
+  selectedCol: string;
+  handleSelectChange: React.ChangeEventHandler<HTMLSelectElement>;
+}) => {
   return (
     <div className="relative">
       <select

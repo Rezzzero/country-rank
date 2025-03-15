@@ -8,8 +8,27 @@ import { CountryType } from "../../types/types";
 import Paper from "@mui/material/Paper";
 import { Search } from "../search/Search";
 import { Filter } from "../filters/Filter";
+import { useEffect, useState } from "react";
+import { Columns } from "../../constants";
 
-export const CountryList = ({ data }: { data: CountryType[] }) => {
+export const CountryList = ({
+  data,
+  setData,
+}: {
+  data: CountryType[];
+  setData: React.Dispatch<React.SetStateAction<CountryType[]>>;
+}) => {
+  const [selectedCol, setSelectedCol] = useState<keyof CountryType>(Columns[0]);
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCol(event.target.value as keyof CountryType);
+  };
+
+  useEffect(() => {
+    setData((prevData) =>
+      [...prevData].sort((a, b) => (b[selectedCol] > a[selectedCol] ? 1 : -1))
+    );
+  }, [selectedCol, setData]);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
@@ -17,7 +36,10 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
         <Search />
       </div>
       <div className="flex gap-5">
-        <Filter />
+        <Filter
+          selectedCol={selectedCol}
+          handleSelectChange={handleSelectChange}
+        />
         <TableContainer
           component={Paper}
           sx={{ overflow: "auto", height: "300px" }}
