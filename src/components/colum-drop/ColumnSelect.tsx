@@ -8,6 +8,10 @@ export const CustomSelect = ({
   selectedCol: string;
   handleSelectChange: React.ChangeEventHandler<HTMLSelectElement>;
 }) => {
+  const formatingCol = (string: string) => {
+    return string[0].toUpperCase() + string.slice(1);
+  };
+
   return (
     <div className="relative">
       <select
@@ -17,7 +21,7 @@ export const CustomSelect = ({
       >
         {Columns.map((col) => (
           <option key={col} value={col}>
-            {col}
+            {formatingCol(col)}
           </option>
         ))}
       </select>

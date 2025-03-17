@@ -16,6 +16,8 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
   const [filteredData, setFilteredData] = useState<CountryType[]>(data);
   const [selectedCol, setSelectedCol] = useState<keyof CountryType>(Columns[0]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>(Regions);
+  const [unMember, setUnMember] = useState(false);
+  const [independent, setIndependent] = useState(false);
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCol(event.target.value as keyof CountryType);
   };
@@ -34,16 +36,21 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
   }, [data]);
 
   useEffect(() => {
-    let updatedData = originalData.filter((country) =>
-      selectedRegions.includes(country.region)
-    );
+    let updatedData = originalData.filter((country) => {
+      const regionMatch = selectedRegions.includes(country.region);
+      const independentMatch = independent
+        ? country.independent === true
+        : true;
+      const unMemberMatch = unMember ? country.unMember === true : true;
+      return regionMatch && independentMatch && unMemberMatch;
+    });
 
     updatedData = [...updatedData].sort((a, b) =>
       b[selectedCol] > a[selectedCol] ? 1 : -1
     );
 
     setFilteredData(updatedData);
-  }, [selectedRegions, selectedCol, originalData, data]);
+  }, [selectedRegions, selectedCol, independent, unMember, originalData, data]);
 
   return (
     <div>
@@ -57,6 +64,10 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
           handleSelectChange={handleSelectChange}
           selectedRegions={selectedRegions}
           handleSelectRegion={handleSelectRegion}
+          unMember={unMember}
+          setUnMember={setUnMember}
+          independent={independent}
+          setIndependent={setIndependent}
         />
         <TableContainer
           component={Paper}
