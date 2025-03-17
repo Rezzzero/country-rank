@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="container mx-auto flex flex-col items-center pt-30 px-8 gap-23">
       <img src={logo} alt="logo" className="mx-auto" />
-      <div className="bg-[#1b1d1f] w-full text-white p-6 border-2 border-[#282B30] rounded-xl">
+      <div className="bg-[#1b1d1f] w-full text-white px-6 pt-6 pb-2 border-2 border-[#282B30] rounded-xl">
         {data ? <CountryList data={data} /> : <p>Loading...</p>}
       </div>
     </div>

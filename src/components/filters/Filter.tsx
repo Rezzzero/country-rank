@@ -14,7 +14,7 @@ export const Filter = ({
   setIndependent,
 }: FilterProps) => {
   return (
-    <div className="flex flex-col w-[320px]">
+    <div className="flex flex-col w-[350px] mt-2 mr-12">
       <p className="mb-1">Sort by</p>
       <CustomSelect
         selectedCol={selectedCol}

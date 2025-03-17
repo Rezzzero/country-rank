@@ -54,11 +54,11 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-6">
         <h1>Found {data.length} countries</h1>
         <Search />
       </div>
-      <div className="flex gap-5">
+      <div className="flex">
         <Filter
           selectedCol={selectedCol}
           handleSelectChange={handleSelectChange}
@@ -71,24 +71,37 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
         />
         <TableContainer
           component={Paper}
-          sx={{ overflow: "auto", height: "400px" }}
+          sx={{
+            overflow: "auto",
+            maxHeight: "670px",
+            scrollbarWidth: "none",
+          }}
         >
           <Table
             sx={{
               minWidth: 650,
-              "& th, & td": { color: "white", borderBottom: "none" },
+              "& th, & td": {
+                color: "white",
+                borderBottom: "none",
+                px: 0,
+              },
             }}
             aria-label="simple table"
           >
             <TableHead>
-              <TableRow sx={{ backgroundColor: "#1b1d1f" }}>
-                <TableCell>Flag</TableCell>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="left">Population</TableCell>
-                <TableCell align="left">
+              <TableRow
+                sx={{
+                  backgroundColor: "#1b1d1f",
+                  borderBottom: "3px solid #282B30",
+                }}
+              >
+                <TableCell sx={{ width: "100px" }}>Flag</TableCell>
+                <TableCell sx={{ width: "200px" }}>Name</TableCell>
+                <TableCell>Population</TableCell>
+                <TableCell>
                   Area (km<sup>2</sup>)
                 </TableCell>
-                <TableCell align="left">Region</TableCell>
+                <TableCell>Region</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -99,17 +112,19 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                     backgroundColor: "#1b1d1f",
                   }}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" sx={{ width: "100px" }}>
                     <img
                       src={country.flags.svg}
                       alt="flag"
                       className="w-[50px] h-[35px] rounded-sm"
                     />
                   </TableCell>
-                  <TableCell align="left">{country.name.common}</TableCell>
-                  <TableCell align="left">{country.population}</TableCell>
-                  <TableCell align="left">{country.area}</TableCell>
-                  <TableCell align="left">{country.region}</TableCell>
+                  <TableCell sx={{ width: "200px" }}>
+                    {country.name.common}
+                  </TableCell>
+                  <TableCell>{country.population}</TableCell>
+                  <TableCell>{country.area}</TableCell>
+                  <TableCell>{country.region}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
