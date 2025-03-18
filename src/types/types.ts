@@ -15,6 +15,7 @@ export interface CountryType {
     [key: string]: string;
   };
   unMember: boolean;
+  subregion?: string;
 }
 
 export interface FilterProps {

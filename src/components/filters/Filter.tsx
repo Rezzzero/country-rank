@@ -14,14 +14,14 @@ export const Filter = ({
   setIndependent,
 }: FilterProps) => {
   return (
-    <div className="flex flex-col w-[350px] mt-2 mr-12">
+    <div className="flex flex-col w-full md:w-[350px] mt-2 mr-12">
       <p className="mb-1">Sort by</p>
       <CustomSelect
         selectedCol={selectedCol}
         handleSelectChange={handleSelectChange}
       />
       <p className="mb-2">Region</p>
-      <div className="flex gap-3 max-w-[270px] flex-wrap mb-8">
+      <div className="flex gap-3 w-full mb-6 md:max-w-[270px] md:flex-wrap md:mb-8">
         {Regions.map((region) => (
           <button
             onClick={() => handleSelectRegion(region)}

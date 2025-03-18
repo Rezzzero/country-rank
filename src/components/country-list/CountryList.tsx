@@ -18,6 +18,7 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
   const [selectedRegions, setSelectedRegions] = useState<string[]>(Regions);
   const [unMember, setUnMember] = useState(false);
   const [independent, setIndependent] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCol(event.target.value as keyof CountryType);
   };
@@ -42,23 +43,47 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
         ? country.independent === true
         : true;
       const unMemberMatch = unMember ? country.unMember === true : true;
-      return regionMatch && independentMatch && unMemberMatch;
+      const searchMatch = [
+        country.name.common,
+        country.region,
+        country.subregion,
+      ].some((field) =>
+        field?.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+      return regionMatch && independentMatch && unMemberMatch && searchMatch;
     });
 
-    updatedData = [...updatedData].sort((a, b) =>
-      b[selectedCol] > a[selectedCol] ? 1 : -1
-    );
+    updatedData = [...updatedData].sort((a, b) => {
+      const aValue = selectedCol === "name" ? a.name.common : a[selectedCol];
+      const bValue = selectedCol === "name" ? b.name.common : b[selectedCol];
+
+      if (typeof aValue === "number" && typeof bValue === "number") {
+        return bValue - aValue;
+      }
+
+      return String(aValue ?? "").localeCompare(String(bValue ?? ""));
+    });
 
     setFilteredData(updatedData);
-  }, [selectedRegions, selectedCol, independent, unMember, originalData, data]);
+  }, [
+    selectedRegions,
+    selectedCol,
+    independent,
+    unMember,
+    searchQuery,
+    originalData,
+    data,
+  ]);
+
+  console.log(data);
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1>Found {data.length} countries</h1>
-        <Search />
+    <>
+      <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:items-center justify-between mb-6">
+        <h1>Found {filteredData.length} countries</h1>
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
-      <div className="flex">
+      <div className="flex flex-col gap-6 md:flex-row md:gap-0">
         <Filter
           selectedCol={selectedCol}
           handleSelectChange={handleSelectChange}
@@ -73,8 +98,9 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
           component={Paper}
           sx={{
             overflow: "auto",
-            maxHeight: "670px",
+            maxHeight: "630px",
             scrollbarWidth: "none",
+            backgroundColor: "#1b1d1f",
           }}
         >
           <Table
@@ -101,7 +127,9 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                 <TableCell>
                   Area (km<sup>2</sup>)
                 </TableCell>
-                <TableCell>Region</TableCell>
+                <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
+                  Region
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -124,13 +152,15 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                   </TableCell>
                   <TableCell>{country.population}</TableCell>
                   <TableCell>{country.area}</TableCell>
-                  <TableCell>{country.region}</TableCell>
+                  <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
+                    {country.region}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
-    </div>
+    </>
   );
 };
