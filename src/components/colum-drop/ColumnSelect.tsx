@@ -12,7 +12,7 @@ export const CustomSelect = ({
   return (
     <div className="relative">
       <select
-        className="bg-[#1b1d1f] w-full text-white py-2 px-3 rounded-xl border-2 border-[#282B30] mb-4 md:mb-8 appearance-none"
+        className="bg-[#1b1d1f] w-full text-gray-300 text-[14px] py-2 px-4 rounded-xl border-2 border-[#282B30] mb-4 md:mb-8 appearance-none"
         value={selectedCol}
         onChange={handleSelectChange}
       >

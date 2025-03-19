@@ -79,11 +79,11 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-center justify-between mb-6">
-        <h1>Found {filteredData.length} countries</h1>
+      <div className="flex flex-col text-gray-300 gap-4 md:gap-0 md:flex-row md:items-center justify-between mb-6">
+        <h1 className="font-bold">Found {filteredData.length} countries</h1>
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
-      <div className="flex flex-col gap-2 md:flex-row md:gap-0">
+      <div className="flex flex-col gap-2 text-gray-300 md:flex-row md:gap-8">
         <Filter
           selectedCol={selectedCol}
           handleSelectChange={handleSelectChange}
@@ -107,7 +107,7 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
             sx={{
               minWidth: 650,
               "& th, & td": {
-                color: "white",
+                color: "#D1D5DB",
                 borderBottom: "none",
                 px: 0,
               },
@@ -125,14 +125,14 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                 </TableCell>
                 <TableCell
                   sx={{
-                    width: { xs: "140px", md: "200px" },
+                    width: { xs: "140px", md: "180px" },
                   }}
                 >
                   Name
                 </TableCell>
                 <TableCell
                   sx={{
-                    width: { xs: "150px", md: "200px" },
+                    width: { xs: "150px", md: "180px" },
                   }}
                 >
                   Population
