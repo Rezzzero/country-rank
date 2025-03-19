@@ -8,7 +8,7 @@ export const CustomCheckbox = ({
   id,
 }: CustomCheckboxProps) => {
   return (
-    <div className="flex items-center gap-2 mb-2">
+    <div className="flex items-center gap-3 mb-2">
       <input
         type="checkbox"
         id={id}
@@ -18,7 +18,7 @@ export const CustomCheckbox = ({
       />
       <div
         onClick={() => onChange(!checked)}
-        className={`w-5 h-5 rounded-sm flex items-center justify-center relative ${
+        className={`w-[22px] h-[22px] rounded-sm flex items-center justify-center relative ${
           checked
             ? "bg-blue-500 border-none"
             : "bg-[#282B30] border-2 border-white"
@@ -32,7 +32,9 @@ export const CustomCheckbox = ({
           }`}
         />
       </div>
-      <label htmlFor={id}>{text}</label>
+      <label htmlFor={id} className="text-[14px]">
+        {text}
+      </label>
     </div>
   );
 };

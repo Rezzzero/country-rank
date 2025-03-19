@@ -10,6 +10,8 @@ import { Search } from "../search/Search";
 import { Filter } from "../filters/Filter";
 import { useEffect, useState } from "react";
 import { Regions, Columns } from "../../constants";
+import { StyledTableRow } from "../styled-table-row/StyledTableRow";
+import { formatNumber } from "../../utils/utils";
 
 export const CountryList = ({ data }: { data: CountryType[] }) => {
   const [originalData, setOriginalData] = useState<CountryType[]>(data);
@@ -75,15 +77,13 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
     data,
   ]);
 
-  console.log(data);
-
   return (
     <>
-      <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:items-center justify-between mb-6">
+      <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:items-center justify-between mb-6">
         <h1>Found {filteredData.length} countries</h1>
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
-      <div className="flex flex-col gap-6 md:flex-row md:gap-0">
+      <div className="flex flex-col gap-2 md:flex-row md:gap-0">
         <Filter
           selectedCol={selectedCol}
           handleSelectChange={handleSelectChange}
@@ -115,22 +115,35 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
             aria-label="simple table"
           >
             <TableHead>
-              <TableRow
-                sx={{
-                  backgroundColor: "#1b1d1f",
-                  borderBottom: "3px solid #282B30",
-                }}
-              >
-                <TableCell sx={{ width: "100px" }}>Flag</TableCell>
-                <TableCell sx={{ width: "200px" }}>Name</TableCell>
-                <TableCell>Population</TableCell>
+              <StyledTableRow>
+                <TableCell
+                  sx={{
+                    width: "100px",
+                  }}
+                >
+                  Flag
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: { xs: "140px", md: "200px" },
+                  }}
+                >
+                  Name
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: { xs: "150px", md: "200px" },
+                  }}
+                >
+                  Population
+                </TableCell>
                 <TableCell>
                   Area (km<sup>2</sup>)
                 </TableCell>
                 <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
                   Region
                 </TableCell>
-              </TableRow>
+              </StyledTableRow>
             </TableHead>
             <TableBody>
               {filteredData.map((country: CountryType) => (
@@ -138,20 +151,21 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                   key={country.name.common}
                   sx={{
                     backgroundColor: "#1b1d1f",
+                    "& td, & th": {
+                      fontSize: "16px",
+                    },
                   }}
                 >
-                  <TableCell component="th" scope="row" sx={{ width: "100px" }}>
+                  <TableCell component="th" scope="row">
                     <img
                       src={country.flags.svg}
                       alt="flag"
                       className="w-[50px] h-[35px] rounded-sm"
                     />
                   </TableCell>
-                  <TableCell sx={{ width: "200px" }}>
-                    {country.name.common}
-                  </TableCell>
-                  <TableCell>{country.population}</TableCell>
-                  <TableCell>{country.area}</TableCell>
+                  <TableCell>{country.name.common}</TableCell>
+                  <TableCell>{formatNumber(country.population)}</TableCell>
+                  <TableCell>{formatNumber(country.area)}</TableCell>
                   <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
                     {country.region}
                   </TableCell>

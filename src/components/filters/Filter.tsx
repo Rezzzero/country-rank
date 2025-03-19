@@ -15,13 +15,13 @@ export const Filter = ({
 }: FilterProps) => {
   return (
     <div className="flex flex-col w-full md:w-[350px] mt-2 mr-12">
-      <p className="mb-1">Sort by</p>
+      <p className="text-[12px] mb-2">Sort by</p>
       <CustomSelect
         selectedCol={selectedCol}
         handleSelectChange={handleSelectChange}
       />
-      <p className="mb-2">Region</p>
-      <div className="flex gap-3 w-full mb-6 md:max-w-[270px] md:flex-wrap md:mb-8">
+      <p className="text-[12px] mb-3">Region</p>
+      <div className="flex gap-3 w-full mb-6 md:max-w-[270px] md:flex-wrap md:mb-10">
         {Regions.map((region) => (
           <button
             onClick={() => handleSelectRegion(region)}
@@ -29,13 +29,13 @@ export const Filter = ({
             key={region}
             className={`${
               selectedRegions.includes(region) ? "bg-[#282B30]" : ""
-            } px-3 py-1 rounded-xl cursor-pointer=`}
+            } px-3 py-1 rounded-xl text-[16px] cursor-pointer`}
           >
             {region}
           </button>
         ))}
       </div>
-      <p className="mb-2">Status</p>
+      <p className="text-[12px] mb-2">Status</p>
       <CustomCheckbox
         checked={unMember}
         onChange={setUnMember}

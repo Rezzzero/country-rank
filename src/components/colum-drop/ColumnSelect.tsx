@@ -1,5 +1,6 @@
 import { Columns } from "../../constants";
 import dropIcon from "../../assets/icons/Expand_down.svg";
+import { formatingCol } from "../../utils/utils";
 
 export const CustomSelect = ({
   selectedCol,
@@ -8,14 +9,10 @@ export const CustomSelect = ({
   selectedCol: string;
   handleSelectChange: React.ChangeEventHandler<HTMLSelectElement>;
 }) => {
-  const formatingCol = (string: string) => {
-    return string[0].toUpperCase() + string.slice(1);
-  };
-
   return (
     <div className="relative">
       <select
-        className="bg-[#1b1d1f] w-full text-white py-2 px-3 rounded-xl border-2 border-[#282B30] mb-4 appearance-none"
+        className="bg-[#1b1d1f] w-full text-white py-2 px-3 rounded-xl border-2 border-[#282B30] mb-4 md:mb-8 appearance-none"
         value={selectedCol}
         onChange={handleSelectChange}
       >
