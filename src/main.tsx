@@ -1,7 +1,10 @@
 import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import App from "./App.tsx";
+import { MainPage } from "./pages/MainPage.tsx";
+import { CountryPage } from "./pages/CountryPage.tsx";
 
 const theme = createTheme({
   breakpoints: {
@@ -15,8 +18,25 @@ const theme = createTheme({
   },
 });
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <MainPage />,
+      },
+      {
+        path: "/country/:name",
+        element: <CountryPage />,
+      },
+    ],
+  },
+]);
+
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
-    <App />
+    <RouterProvider router={router} />
   </ThemeProvider>
 );

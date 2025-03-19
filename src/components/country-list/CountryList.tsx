@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Regions, Columns } from "../../constants";
 import { StyledTableRow } from "../styled-table-row/StyledTableRow";
 import { formatNumber } from "../../utils/utils";
+import { useNavigate } from "react-router-dom";
 
 export const CountryList = ({ data }: { data: CountryType[] }) => {
   const [originalData, setOriginalData] = useState<CountryType[]>(data);
@@ -76,6 +77,8 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
     originalData,
     data,
   ]);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -151,10 +154,12 @@ export const CountryList = ({ data }: { data: CountryType[] }) => {
                   key={country.name.common}
                   sx={{
                     backgroundColor: "#1b1d1f",
+                    cursor: "pointer",
                     "& td, & th": {
                       fontSize: "16px",
                     },
                   }}
+                  onClick={() => navigate(`/country/${country.name.common}`)}
                 >
                   <TableCell component="th" scope="row">
                     <img
