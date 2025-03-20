@@ -1,5 +1,6 @@
 export interface CountryType {
   area: number;
+  borders?: string[];
   capital: string[];
   flags: {
     svg: string;
@@ -7,11 +8,17 @@ export interface CountryType {
   independent: boolean;
   name: {
     common: string;
+    official: string;
   };
   population: number;
   region: string;
   continents: string[];
-  language: {
+  currencies: {
+    [key: string]: {
+      name: string;
+    };
+  };
+  languages: {
     [key: string]: string;
   };
   unMember: boolean;
