@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { formatNumber } from "../utils/utils";
-import logo from "../assets/logo/logo.svg";
+import logo from "../assets/logo/Logo.svg";
 import { useCountry } from "../hooks/useCountry";
 
 export const CountryPage = () => {

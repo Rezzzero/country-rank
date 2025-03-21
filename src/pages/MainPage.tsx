@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CountryList } from "../components/country-list/CountryList";
 import { CountryType } from "../types/types";
-import logo from "../assets/logo/logo.svg";
+import logo from "../assets/logo/Logo.svg";
 
 export const MainPage = () => {
   const [data, setData] = useState<CountryType[]>([]);
