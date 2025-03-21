@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { formatNumber } from "../utils/utils";
 import logo from "../assets/logo/logo.svg";
 import { useCountry } from "../hooks/useCountry";
 
 export const CountryPage = () => {
   const { name } = useParams();
+  const navigate = useNavigate();
   const { country, borders } = useCountry({ name: name || "" });
 
   if (!country) return <p>Loading...</p>;
@@ -69,7 +70,11 @@ export const CountryPage = () => {
         <ul className="flex flex-wrap gap-4 px-4">
           {borders.length > 0 ? (
             borders.map((border) => (
-              <li key={border.name.common} className="text-[11px]">
+              <li
+                key={border.name.common}
+                onClick={() => navigate(`/country/${border.name.common}`)}
+                className="text-[11px]"
+              >
                 <img
                   src={border.flags.svg}
                   alt={`${border.name.common} flag`}
